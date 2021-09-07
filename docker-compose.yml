@@ -1,0 +1,18 @@
+version: "3"
+services:
+  website:
+    image: golang:1.17.0-buster
+    command: ["go", "run", "./cmd/golangorg", "--http=0.0.0.0:9090"]
+    environment:
+      - GOCACHE=/var/local/go/cache
+      - GOENV=/var/local/go/env
+      - GOMODCACHE=/var/local/go/pkg/mod
+      - GOPROXY=https://goproxy.io,direct
+    ports:
+      - 9090:9090
+    volumes:
+      - ./source:/source
+      - go_var:/var/local/go
+    working_dir: /source
+volumes:
+  go_var: ~
